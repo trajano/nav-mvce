@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -24,7 +24,8 @@ const SettingsScreen = ({ navigation }: RootStackScreenProps<"Settings">) => {
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const RootNavigator = () => {
   const navigation = useNavigation();
-  const headerRight = useCallback(() => (<Pressable onPress={() => { navigation.goBack() }}><Icon name="close" /></Pressable >), [navigation]);
+  const headerRight = useCallback(() => (
+    <View style={styles.container}><Pressable onPress={() => { navigation.goBack() }}><Icon name="close" /></Pressable ></View>), [navigation]);
   return (<RootStack.Navigator screenOptions={{ headerShown: false }}>
     <RootStack.Screen name="Home" component={HomeScreen} />
     <RootStack.Screen name="Settings" component={SettingsScreen}
@@ -45,3 +46,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { width: 50, alignItems: "flex-end" }
+})
